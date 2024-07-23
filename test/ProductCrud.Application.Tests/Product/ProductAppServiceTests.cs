@@ -141,4 +141,40 @@ public  class ProductAppServiceTests
 
     }
 
+
+
+
+
+    [Fact]
+    public async Task Delete_Should_Return_ProductNotFoundException_When_Product_Not_Exists()
+    {
+        // Arrange
+        var productId = 100;
+        var product = new Product { Id = productId, Name = "Test Product", Price = 100 };
+        _productRepositoryMock.Setup(repo => repo.Delete(productId));
+
+
+        var exception = await Assert.ThrowsAsync<BusinessException>(() => _productAppService.DeleteAsync(productId));
+        Assert.Equal("404", exception.Code);
+        Assert.Equal(productId, exception.Data["ProductId"]);
+    }
+
+
+    //[Fact]
+    //public async Task Delete_Success()
+    //{
+    //    // Arrange
+    //    var productId = 1;
+
+
+
+    //    await _productAppService.DeleteAsync(productId);
+
+    //    _productRepositoryMock.Setup(repo => repo.Delete(productId));
+
+
+
+    //}
+
+
 }

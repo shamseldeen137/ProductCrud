@@ -73,7 +73,7 @@ namespace ProductCrud.Web.Controllers
                     await _productAppService.DeleteAsync(id);
                     return NoContent();
                 }
-                catch (BusinessException ex) when (ex.Code == "ProductNotFound")
+                catch (BusinessException ex) when (ex.Code == "404")
                 {
                     return NotFound(new { Message = ex.Message, ProductId = ex.Data["ProductId"] });
                 }

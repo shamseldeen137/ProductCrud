@@ -40,8 +40,25 @@ namespace ProductCrud.Product
                     var scopedServices = scope.ServiceProvider;
                     var db = scopedServices.GetRequiredService<ProductCrudDbContext>();
                     db.Database.EnsureCreated();
+                    SeedDatabase(db);
                 }
+
             });
+        }
+
+
+        private void SeedDatabase(ProductCrudDbContext context)
+        {
+            // Seed the database with test data.
+            context.Products.Add(new Product
+            {
+                Id = 1,
+                Name = "Test Product",
+                Price = 100,
+                Description = "10"
+            });
+
+            context.SaveChanges();
         }
     }
 }
